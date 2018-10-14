@@ -26,8 +26,8 @@ def FrequentWords(Text, k, t=None):
 def ReverseComplement(Pattern):
     '''
     Given a nucleotide p, we denote its complementary nucleotide as p*. 
-    The reverse complement of a string Pattern = p1 … pn is the string 
-    Pattern_rc = pn* … p1* formed by taking the complement of each nucleotide in Pattern, 
+    The reverse complement of a string Pattern = p1 ... pn is the string 
+    Pattern_rc = pn* ... p1* formed by taking the complement of each nucleotide in Pattern, 
     then reversing the resulting string.
     '''
     complement_map = {
