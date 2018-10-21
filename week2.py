@@ -19,6 +19,11 @@ def minimum_skew(genome):
     return np.where(skew_history == skew_history.min())[0].tolist()
 
 
+def max_skew(genome):
+    skew_history = np.array(skew(genome))
+    return np.where(skew_history == skew_history.max())[0].tolist()
+
+
 def HammingDistance(p, q):
     p = np.array(list(p))
     q = np.array(list(q))
@@ -114,7 +119,7 @@ def FrequentWordsWithMismatchesAndReverseComplements(text, k, d):
         final_words.append(word)
         final_words.append(ReverseComplement(word))
     final_words = list(set(final_words))
-    final_words = words
+
     approximate_counts = []
     for word in final_words:
 
@@ -123,10 +128,4 @@ def FrequentWordsWithMismatchesAndReverseComplements(text, k, d):
 
     approximate_counts = np.array(approximate_counts)
     max_indices = np.where(approximate_counts == approximate_counts.max())[0].tolist()
-    print(approximate_counts)
-    print(final_words)
     return [final_words[i] for i in max_indices]
-    
-FrequentWordsWithMismatchesAndReverseComplements('ACGTTGCATGTCGCATGATGCATGAGAGCT', 4, 1)
-FrequentWordsWithMismatchesAndReverseComplements('AAAAAAAAAA', 2, 1)
-FrequentWordsWithMismatchesAndReverseComplements('AAT', 3, 0)
