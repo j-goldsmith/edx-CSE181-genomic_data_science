@@ -1,4 +1,6 @@
-from week2 import hamming_ball, ApproximatePatternCount
+from week2 import hamming_ball, ApproximatePatternCount, HammingDistance
+import sys
+from itertools import product
 
 def MotifEnumeration(Dna, k, d):
     '''
@@ -29,14 +31,53 @@ def MotifEnumeration(Dna, k, d):
     patterns = sorted(set(patterns))
     return patterns
 
+def get_potential_kmers(k):
+    dna = 'A', 'C', 'G', 'T'
+    return [''.join(i) for i in product(dna, repeat = k)]
+
+
+def distance_score(dna, kmer):
+    score = 0
+    k = len(kmer)
+    for sample in dna:
+        sample_score = sys.maxsize
+        for i in range(len(sample)-k+1):
+            d = HammingDistance(kmer, sample[i:i+k])
+            if (d < sample_score):
+                sample_score = d
+        score += sample_score
+    return score
+
+def MedianString(dna, k):
+    potential_medians = get_potential_kmers(k)
+    distance = sys.maxsize
+    median = None
+    for kmer in potential_medians:
+       score = distance_score(dna, kmer)
+       if (distance > score):
+           distance = score
+           median = kmer
+    return median
 
 if __name__=="__main__":
-    print(MotifEnumeration(
+    print(MedianString(
+    [
+        'AAATTGACGCAT',
+        'GACGACCACGTT',
+        'CGTCAGCGCCTG',
+        'GCTGAGCACCGG',
+        'AGTACGGGACAG'
+    ], 
+    3))
+''' 
+   print(MotifEnumeration(
         [
             'ACGT',
             'ACGT',
             'ACGT'
-
         ],
         3, 0
     ))
+'''
+
+    
